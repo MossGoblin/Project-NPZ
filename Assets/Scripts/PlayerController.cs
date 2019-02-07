@@ -5,119 +5,137 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    // Movement states
-    private bool midAir;
+    // Dependencies
+    // Ghost Connection
+    private GhostProps ghosts;
 
-    // Ghost Connections Variables
-    public GhostProps ghostProps;
+    // Components
+    SpriteRenderer heroRenderer;
+    Transform heroTransform;
+    [SerializeField] Transform playerBase;
+    Rigidbody2D heroRigidBody;
 
-    // Variables
+    // Hero Stats
     [SerializeField] private string heroName;
-    public float heroJumpMag;
+    [SerializeField] private float heroJumpFactor;
+    [SerializeField] private float heroMoveSpeed;
+    [SerializeField] private bool heroDoubleJump;
+    [SerializeField] private Sprite heroSprite;
+    [SerializeField] private int heroState;
 
-    // ghost data
-    public string[] ghostNames = new string[3] { "Ninja", "Pirate", "Zombie" };
-    public Sprite[] ghostSprites = new Sprite[3];
-    public float[] ghostJumpMags = new float[3];
-    public float[] ghostClocks;
+    // Hero Position Checks
+    [SerializeField] private bool midAir;
 
-    private SpriteRenderer spriteRenderer;
-    private int crrHero;
-    private Rigidbody2D heroRigidBody;
+    // Ground Checks
+    [SerializeField] private float playerBaseGroundRadius;
+    [SerializeField] LayerMask groundDef;
 
-    // Methods
+
+
+    // Start is called before the first frame update
     void Start()
     {
-        // Ghost Connections Init
-        ghostProps = GetComponent<GhostProps>();
+        // Establish ghost connection
+        //ghosts = FindObjectOfType<GhostProps>().GetComponent<GhostProps>();
+        ghosts = FindObjectOfType<GhostProps>();
+        Debug.Log(ghosts.PingMe());
 
-        // Init states
-        midAir = false;
-
-        // Array Attempts
-        ghostJumpMags[0] = 15f;
-        ghostJumpMags[1] = 10f;
-        ghostJumpMags[2] = 5f;
-
-        // Init character
+        // Hero Components
+        heroRenderer = GetComponent<SpriteRenderer>();
+        heroTransform = GetComponent<Transform>();
         heroRigidBody = GetComponent<Rigidbody2D>();
-        spriteRenderer = this.GetComponent<SpriteRenderer>();
-        crrHero = 0;
-        SwitchTo(0);
 
+        // Set default hero state
+        heroState = 0;
+
+        // Init from ghost 0
+        UpdateHeroState();
+
+        // Update Position Checks
+        UpdatePositionChecks();
     }
 
-    void FixedUpdate()
+    // Update is called once per frame
+
+    void Update()
     {
         HandleInput();
-        UpdateStates();
+
     }
 
-    private void UpdateStates()
+    private void UpdatePositionChecks()
     {
-        if (heroRigidBody.velocity.y != 0)
+        // TODO : Check here: https://www.youtube.com/watch?v=05TCTrpGB-4&index=9&list=PLX-uZVK_0K_6VXcSajfFbXDXndb6AdBLO
+        midAir = true;
+        Collider2D baseCollider = Physics2D.OverlapCircle(playerBase.position, playerBaseGroundRadius, groundDef);
+        if (baseCollider.gameObject != gameObject)
         {
-            midAir = true;
+            Debug.Log("TouchDown!");
+            midAir = false;
         }
+    }
+
+    private void UpdateHeroState()
+    {
+        heroName = ghosts.hrNames[heroState];
+        heroJumpFactor = ghosts.hrJumpFactor[heroState];
+        heroDoubleJump = ghosts.hrDoubleJump[heroState];
+        heroMoveSpeed = ghosts.hrMoveSpeed[heroState];
+        heroSprite = ghosts.hrSprites[heroState];
+        heroRenderer.sprite = heroSprite;
+        Debug.Log("Hero changed to: " + heroName);
     }
 
     private void HandleInput()
     {
-        // Hero Switch Controls
-        if (Input.GetKeyDown("1"))
-        {
-            SwitchTo(0);
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            SwitchTo(1);
-        }
-        if (Input.GetKeyDown("3"))
-        {
-            SwitchTo(2);
-        }
-        if (Input.GetKeyDown("q"))
-        {
-            crrHero = CycleState(crrHero);
-        }
-
-        // Movement Controls
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            Debug.Log("Up / " + midAir);
-            HeroJump();
-        }
-
-        // Test Input
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            Debug.Log(ghostProps.PingMe());
-        }
+        HandleHeroStateChange();
+        HandleMovement();
     }
 
-    private void HeroJump()
+    private void HandleMovement()
     {
-        heroRigidBody.velocity = Vector2.up * heroJumpMag;
+        //// TEMPORARY MOVEMENT MECHANIC
+        //var heroHMv = Input.GetAxis("Horizontal");
+        //var heroVMv = Input.GetAxis("Vertical");
+        //if (heroHMv != 0 || heroVMv != 0)
+        //{
+        //    heroTransform.Translate(heroHMv * heroMoveSpeed * Time.deltaTime, heroVMv * heroMoveSpeed* Time.deltaTime, heroTransform.position.z);
+        //}
+
+        // TODO : Jump Attempt
     }
 
-    private int CycleState(int crrHero)
+    private void HandleHeroStateChange()
     {
-        if (crrHero + 1 > 2)
+        // Cycle Hero
+        if (Input.GetKeyDown(KeyCode.Return))
         {
-            crrHero = 0;
+            if (heroState + 1 > 2)
+            {
+                heroState = 0;
+            }
+            else
+            {
+                heroState++;
+            }
+            UpdateHeroState();
         }
-        else
-        {
-            crrHero++;
-        }
-        SwitchTo(crrHero);
-        return crrHero;
-    }
 
-    private void SwitchTo(int newState)
-    {
-        this.heroName = ghostNames[newState];
-        this.heroJumpMag = ghostJumpMags[newState];
-        spriteRenderer.sprite = ghostSprites[newState];
+        // Change Hero Directly
+        if (heroState != 0 && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Keypad1)))
+        {
+            heroState = 0;
+            UpdateHeroState();
+        }
+        if (heroState != 1 && (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetKeyDown(KeyCode.Keypad2)))
+        {
+            heroState = 1;
+            UpdateHeroState();
+        }
+        if (heroState != 2 && (Input.GetKeyDown(KeyCode.Alpha3) || Input.GetKeyDown(KeyCode.Keypad3)))
+        {
+            heroState = 2;
+            UpdateHeroState();
+        }
     }
 }
