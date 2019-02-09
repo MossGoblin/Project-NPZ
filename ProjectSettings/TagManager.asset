@@ -9,6 +9,8 @@ TagManager:
   - Repo
   - BasePoint
   - Timer
+  - enemy
+  - healer
   layers:
   - Default
   - TransparentFX

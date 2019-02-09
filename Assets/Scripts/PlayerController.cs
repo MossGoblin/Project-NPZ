@@ -36,6 +36,8 @@ public class PlayerController : MonoBehaviour
 
     // Hero Status Checks
     [SerializeField] private bool shouldJump; // Trigger showing that the hero should jump
+    [SerializeField] private float activeTimePickUp;
+    [SerializeField] private float[] cooldownTimePickUp;
 
     // Ground Checks
     [SerializeField] private float playerBaseGroundRadius;
@@ -91,14 +93,11 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         Time.timeScale = timeDilationFactor;
-        UpdatePositionChecks();
+        ResetValues();
         HandleInput();
         HandleMovement();
         UpdateTimers();
-        // TODO : CHECK FOR TIMEOUTS
         CheckForTimeOuts();
-
-        ResetValues();
     }
 
     private void CheckForTimeOuts()
@@ -155,7 +154,7 @@ public class PlayerController : MonoBehaviour
             if (count == heroState)
             {
                 heroTimerMarker = "*";
-                ActiveTimers[count] = Math.Max((ActiveTimers[count] - (ghosts.hrActiveTempo[count] * Time.deltaTime)), 0);
+                ActiveTimers[count] = Math.Max((ActiveTimers[count] - (ghosts.hrActiveTempo[count] * Time.deltaTime) + activeTimePickUp), 0);
                 CoolDownTimers[count] = Math.Min((CoolDownTimers[count] + (ghosts.hrCoolDownTempo[count] * Time.deltaTime * activeCoolDown)), ghosts.hrMaxTimers[count]);
             }
             else
@@ -172,6 +171,9 @@ public class PlayerController : MonoBehaviour
 
     private void ResetValues()
     {
+        //Debug.Log("Absorbed " + activeTimePickUp);
+        activeTimePickUp = 0f;
+        UpdatePositionChecks();
     }
 
     private bool IsOnGround()
@@ -211,7 +213,7 @@ public class PlayerController : MonoBehaviour
         heroMoveSpeed = ghosts.hrMoveSpeed[heroState];
         heroSprite = ghosts.hrSprites[heroState];
         heroRenderer.sprite = heroSprite;
-        Debug.Log("Hero changed to: " + heroName);
+        //Debug.Log("Hero changed to: " + heroName);
     }
 
     private void HandleInput()
@@ -221,7 +223,7 @@ public class PlayerController : MonoBehaviour
         // Jump
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            Debug.Log("UP");
+            //Debug.Log("UP");
             shouldJump = true;
         }
 
@@ -234,7 +236,7 @@ public class PlayerController : MonoBehaviour
         // Perform Jump
         if ((onGround && shouldJump) || (heroDoubleJump && shouldJump && !didDoubleJump)) 
         {
-            Debug.Log("Jumping");
+            //Debug.Log("Jumping");
             if (!onGround)
             {
                 didDoubleJump = true;
@@ -244,22 +246,30 @@ public class PlayerController : MonoBehaviour
             shouldJump = false;
         }
 
-        // Horizontal movement
-        if (onGround)
-        {
-            if (hrMovement > 0)
-            {
-                Debug.Log("Right!");
-            }
-            else if (hrMovement < 0)
-            {
-                Debug.Log("Left!");
-            }
-            {
+        //// Horizontal movement only on ground
+        //if (onGround)
+        //{
+        //    if (hrMovement > 0)
+        //    {
+        //        Debug.Log("Right!");
+        //    }
+        //    else if (hrMovement < 0)
+        //    {
+        //        Debug.Log("Left!");
+        //    }
+        //    heroRigidBody.velocity = new Vector2(hrMovement * heroMoveSpeed, heroRigidBody.velocity.y);
+        //}
 
-            }
-            heroRigidBody.velocity = new Vector2(hrMovement * heroMoveSpeed, heroRigidBody.velocity.y);
+        // Horizontal movement with air control
+        if (hrMovement > 0)
+        {
+            //Debug.Log("Right!");
         }
+        else if (hrMovement < 0)
+        {
+            //Debug.Log("Left!");
+        }
+        heroRigidBody.velocity = new Vector2(hrMovement * heroMoveSpeed, heroRigidBody.velocity.y);
     }
 
     private void HandleHeroStateChange()
@@ -302,15 +312,30 @@ public class PlayerController : MonoBehaviour
         // Activation or Deactivation
         // Swap Active and CoolDown Timers for CURRENT hero
 
-        //// DEPRECATED
-        ////float newActive = ghosts.hrMaxTimers[heroState] - CoolDownTimers[heroState];
-        //float newActive = CoolDownTimers[heroState];
-        //float newCoolDown = ghosts.hrMaxTimers[heroState] - ActiveTimers[heroState];
-
         float newActive = CoolDownTimers[heroState];
         float newCoolDown = ActiveTimers[heroState];
         //Debug.Log("New Active: " + newActive + " / New CoolDown: " + newCoolDown);
         ActiveTimers[heroState] = newActive;
         CoolDownTimers[heroState] = newCoolDown;
+    }
+
+    // Colliding with the Interactable
+    void OnTriggerStay2D(Collider2D other)
+    {
+
+        // Meet the healer
+        if (other.tag == "healer")
+        {
+            // TODO HERE
+            Debug.Log("Heal");
+            activeTimePickUp += 1f;
+        }
+
+        // Meet the enemy
+        if (other.tag == "enemy")
+        {
+            Debug.Log("Damage");
+            activeTimePickUp -= 0.5f;
+        }
     }
 }
