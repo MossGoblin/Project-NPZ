@@ -4,9 +4,11 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - repo
   - Background
   - Terrain
+  - Repo
+  - BasePoint
+  - Timer
   layers:
   - Default
   - TransparentFX
@@ -17,7 +19,7 @@ TagManager:
   - 
   - 
   - Player
-  - 
+  - Ground
   - 
   - 
   - 
