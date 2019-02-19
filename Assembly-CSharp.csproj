@@ -62,6 +62,7 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\NEW\bulletAI.cs" />
     <Compile Include="Assets\Scripts\NEW\enemyController.cs" />
+    <Compile Include="Assets\Scripts\NEW\GameMaster.cs" />
     <Compile Include="Assets\Scripts\NEW\Ghost.cs" />
     <Compile Include="Assets\Scripts\NEW\heroController.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
