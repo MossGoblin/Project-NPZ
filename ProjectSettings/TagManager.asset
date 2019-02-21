@@ -7,11 +7,11 @@ TagManager:
   - Background
   - Terrain
   - Repo
-  - BasePoint
   - Timer
-  - enemy
   - healer
   - Clock
+  - PlayerElement
+  - Enemy
   layers:
   - Default
   - TransparentFX
