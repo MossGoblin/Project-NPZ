@@ -62,9 +62,10 @@
   <ItemGroup>
     <Compile Include="Assets\Scripts\NEW\bulletAI.cs" />
     <Compile Include="Assets\Scripts\NEW\enemyController.cs" />
-    <Compile Include="Assets\Scripts\NEW\GameMaster.cs" />
     <Compile Include="Assets\Scripts\NEW\Ghost.cs" />
     <Compile Include="Assets\Scripts\NEW\heroController.cs" />
+    <Compile Include="Assets\Scripts\NEW\masterController.cs" />
+    <Compile Include="Assets\Scripts\NEW\ncomingState.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Yolly/Google Drive/Codee/[ GITHUBBED ]/[ MyStuff ]/[ Unity ]/Project-NPZ/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
