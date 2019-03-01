@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 83626097990b27b48a158bb3791aaca7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - ghost: {instanceID: 0}
+  - deadHero: {instanceID: 0}
+  - shooter: {instanceID: 0}
+  - bullets: {fileID: 8624957155505739353, guid: fa6fa7bd4469c264498665f5ca97afb2,
+      type: 3}
+  - gameMaster: {instanceID: 0}
+  - acOne: {instanceID: 0}
+  - cdOne: {instanceID: 0}
+  - acTwo: {instanceID: 0}
+  - cdTwo: {instanceID: 0}
+  - acThree: {instanceID: 0}
+  - cdThree: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
