@@ -1,6 +1,6 @@
 Project NPZ
 ===========
-Ninja-Pirate-Zombie
+Ninja-Pirate-Zombie (working title)
 
 * base - shooter platformer game
 * face (1) - the player can swith between three characters mid-game - a Ninja, a Pirate and a Zombie
