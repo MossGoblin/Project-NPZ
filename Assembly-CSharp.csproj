@@ -60,13 +60,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\Conductor.cs" />
     <Compile Include="Assets\Scripts\enemyBulletAI.cs" />
     <Compile Include="Assets\Scripts\enemyController.cs" />
     <Compile Include="Assets\Scripts\Ghost.cs" />
+    <Compile Include="Assets\Scripts\GhostMaster.cs" />
     <Compile Include="Assets\Scripts\heroBulletAI.cs" />
     <Compile Include="Assets\Scripts\heroController.cs" />
+    <Compile Include="Assets\Scripts\HeroMaster.cs" />
+    <Compile Include="Assets\Scripts\IAgent.cs" />
+    <Compile Include="Assets\Scripts\IEnemy.cs" />
+    <Compile Include="Assets\Scripts\IHero.cs" />
     <Compile Include="Assets\Scripts\platformController.cs" />
     <Compile Include="Assets\Scripts\timeController.cs" />
+    <Compile Include="Assets\Scripts\TimeMaster.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>C:/Users/Yolly/Google Drive/Codee/[ GITHUBBED ]/[ MyStuff ]/[ Unity ]/Project-NPZ/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
