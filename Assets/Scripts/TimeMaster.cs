@@ -8,7 +8,6 @@ public class TimeMaster : MonoBehaviour
 {
     // References
     [SerializeField] private Conductor conductor;
-    private int currentState;
 
     // HeroState
     private int heroStatus;
@@ -17,6 +16,9 @@ public class TimeMaster : MonoBehaviour
     public Image activeClock;
     public Image[] cooldownClocks;
     public Color disabledClock;
+
+    // Hero UI Clock Reference
+    public Image heroClock;
 
     // Timers
     public float activeTimer;
@@ -28,15 +30,21 @@ public class TimeMaster : MonoBehaviour
     public float activeToken;
     public float[] cooldownTokens;
 
+    // Input variables
+    public float horizontal;
+
 
     // Start is called before the first frame update
     void Start()
     {
+        //// Hero UI Clock access point
+        //heroClock = conductor.heroMaster.GetComponentInChildren<Image>();
+
         // Init arrays
         cooldownTimers = new float[3];
         cooldownTokens = new float[3];
 
-        currentState = conductor.heroStatus;
+        CheckState();
 
         InitTimers();
         UpdateClocks();
@@ -60,7 +68,7 @@ public class TimeMaster : MonoBehaviour
         for (int count = 0; count < 3; count++)
         {
             activeTimer = conductor.ghostMaster.defaultActiveTimer;
-            if (count != currentState)
+            if (count != heroStatus)
             {
                 cooldownTimers[count] = conductor.ghostMaster.defaultCoolDownTimer;
             }
@@ -95,6 +103,18 @@ public class TimeMaster : MonoBehaviour
             activeClock.fillAmount = activeNormalized;
             float cooldownNormalized = Mathf.Clamp(cooldownTimers[count], 0, conductor.ghostMaster.defaultCoolDownTimer) / conductor.ghostMaster.defaultCoolDownTimer;
             cooldownClocks[count].fillAmount = cooldownNormalized;
+
+            // Adjust HeroClock Position
+            //RectTransform heroRectTransform = conductor.heroMaster.GetComponent<RectTransform>();
+            //Transform heroRectTransform = conductor.heroMaster.GetComponent<Transform>();
+            //Vector3 heroPosition = heroRectTransform.localPosition;
+            //Vector3 heroClockPosition = new Vector3(heroPosition.x + 10, heroPosition.y + 70, heroPosition.z);
+            //Transform heroClockRect = heroClock.GetComponent<Transform>();
+            //heroClockRect.localPosition = heroClockPosition;
+
+            // Update HeroClock Color and FillAmount
+            heroClock.color = conductor.ghostMaster.colors[heroStatus];
+            heroClock.fillAmount = activeNormalized;
         };
 
         // Update Active Color
@@ -118,6 +138,20 @@ public class TimeMaster : MonoBehaviour
             Vector3 newScale = new Vector3(alphaNormal, alphaNormal, alphaNormal);
             cooldownClocks[count].transform.localScale = newScale;
         }
+    }
+
+    public void Swap(int state)
+    {
+        // Swap timers for current hero
+        float tempTimer = activeTimer;
+        activeTimer = cooldownTimers[heroStatus];
+        cooldownTimers[heroStatus] = tempTimer;
+        // Swap current hero
+        heroStatus = state;
+        // Swap timers for new hero
+        tempTimer = activeTimer;
+        activeTimer = cooldownTimers[heroStatus];
+        cooldownTimers[heroStatus] = tempTimer;
     }
 
     private int NextState(int state)

@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HeroMaster : MonoBehaviour, IHero
+public class HeroMaster : MonoBehaviour, IAgent
 {
     // References
     [SerializeField] private Conductor conductor;
+    SpriteRenderer spriteRedenrer;
+    Rigidbody2D rigidBody;
 
     // Current stats
     [SerializeField] private int status;
@@ -14,9 +16,6 @@ public class HeroMaster : MonoBehaviour, IHero
 
     public void Init()
     {
-        // Self-References
-        SpriteRenderer spriteRedenrer = gameObject.GetComponent<SpriteRenderer>();
-
         status = conductor.heroStatus;
         spriteRedenrer.sprite = conductor.ghostMaster.sprites[status];
     }
@@ -36,9 +35,12 @@ public class HeroMaster : MonoBehaviour, IHero
         throw new System.NotImplementedException();
     }
 
-    public void Move(float horizontal)
+    public void Move(float hrMovement)
     {
-        throw new System.NotImplementedException();
+        if (hrMovement != 0)
+        {
+            rigidBody.velocity = new Vector2(hrMovement * conductor.ghostMaster.moveSpeed[status], rigidBody.velocity.y);
+        }
     }
 
     public void OnGround()
@@ -46,21 +48,31 @@ public class HeroMaster : MonoBehaviour, IHero
         throw new System.NotImplementedException();
     }
 
-    public void Swap()
+    public void Swap(int state)
     {
-        throw new System.NotImplementedException();
+        Debug.Log($"HH: Swap to {state} Called");
+
+        // Swap state
+        status = state;
+
+        // Swap sprite
+        spriteRedenrer.sprite = conductor.ghostMaster.sprites[status];
     }
 
 
     // Start is called before the first frame update
     void Start()
     {
+        // Self-References
+        spriteRedenrer = gameObject.GetComponent<SpriteRenderer>();
+        rigidBody = gameObject.GetComponent<Rigidbody2D>();
+
         Init();
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        Move(conductor.horizontal);
     }
 }
