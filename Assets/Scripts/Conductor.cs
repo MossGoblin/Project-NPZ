@@ -44,7 +44,7 @@ public class Conductor : MonoBehaviour
         // Enter to swap heroes
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            Debug.Log("CC: Return Pressed");
+            //Debug.Log("CC: Return Pressed");
             heroStatus = NextState(heroStatus);
             SwapByInput();
         }
@@ -77,11 +77,17 @@ public class Conductor : MonoBehaviour
 
         // Move sideways
         horizontal = Input.GetAxis("Horizontal");
+
+        // Jump
+        if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            heroMaster.Jump();
+        }
     }
 
     public void SwapByInput()
     {
-        Debug.Log("CC: SwapByInput Called");
+        //Debug.Log("CC: SwapByInput Called");
         heroMaster.Swap(heroStatus);
         timeMaster.Swap(heroStatus);
     }
