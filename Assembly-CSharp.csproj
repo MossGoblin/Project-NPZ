@@ -71,7 +71,9 @@
     <Compile Include="Assets\Scripts\HeroMaster.cs" />
     <Compile Include="Assets\Scripts\IAgent.cs" />
     <Compile Include="Assets\Scripts\IEnemy.cs" />
-    <Compile Include="Assets\Scripts\platformController.cs" />
+    <Compile Include="Assets\Scripts\PlatformCollisionTrigger.cs" />
+    <Compile Include="Assets\Scripts\platformControllerOld.cs" />
+    <Compile Include="Assets\Scripts\SpawnMaster.cs" />
     <Compile Include="Assets\Scripts\timeController.cs" />
     <Compile Include="Assets\Scripts\TimeMaster.cs" />
     <Reference Include="Unity.TextMeshPro.Editor">

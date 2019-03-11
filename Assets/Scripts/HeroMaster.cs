@@ -10,6 +10,7 @@ public class HeroMaster : MonoBehaviour, IAgent
     [SerializeField] private Conductor conductor;
     SpriteRenderer spriteRedenrer;
     Rigidbody2D rigidBody;
+    Transform transform;
     [SerializeField] private Transform[] playerBase;
     [SerializeField] private LayerMask groundDef;
 
@@ -21,6 +22,7 @@ public class HeroMaster : MonoBehaviour, IAgent
     [SerializeField] private bool onGround;
     private bool canDoubleJump;
     private float jumpPower;
+    [SerializeField] private bool facingRight;
 
     public void Init()
     {
@@ -60,10 +62,10 @@ public class HeroMaster : MonoBehaviour, IAgent
     
     public void Move(float hrMovement)
     {
-        // TODO :: HH Something wrong with the movement
         if (hrMovement != 0)
         {
             rigidBody.velocity = new Vector2(hrMovement * conductor.ghostMaster.moveSpeed[status], rigidBody.velocity.y);
+            FlipPlayer();
         }
     }
 
@@ -73,7 +75,7 @@ public class HeroMaster : MonoBehaviour, IAgent
         {
             foreach (Transform groundPoint in playerBase)
             {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(groundPoint.position.x, groundPoint.position.y), 0.5f, groundDef);
+                Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(groundPoint.position.x, groundPoint.position.y), 0.2f, groundDef);
                 for (int count = 0; count < colliders.Length; count++)
                 {
                     if (colliders[count].gameObject != gameObject)
@@ -96,6 +98,19 @@ public class HeroMaster : MonoBehaviour, IAgent
         Init();
     }
 
+    private void FlipPlayer()
+    {
+        if (onGround || (!onGround && conductor.ghostMaster.airControl[status]))
+        {
+            if ((rigidBody.velocity.x >= 0 && facingRight) || (rigidBody.velocity.x < 0 && !facingRight))
+            {
+                facingRight = !facingRight;
+                float newScaleX = transform.localScale.x * -1;
+                transform.localScale = new Vector3(newScaleX, transform.localScale.y, transform.localScale.z);
+            }
+        }
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -103,17 +118,46 @@ public class HeroMaster : MonoBehaviour, IAgent
         // Self-References
         spriteRedenrer = gameObject.GetComponent<SpriteRenderer>();
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
-
+        transform = gameObject.GetComponent<Transform>();
         Init();
+    }
+    private void CheckBorders()
+    {
+        // Some magic numbers
+        /*
+        min x = -10
+        max x = 61
+        min y = -9
+        max y = 16
+        */
+
+        if (transform.position.x <= -10 ||
+            transform.position.x >= 61 ||
+            transform.position.y <= -9 ||
+            transform.position.y >= 16)
+        {
+            Debug.Log("Out of borders");
+            
+        }
     }
 
 
     // Update is called once per frame
     void FixedUpdate()
     {
+        // Fake Friction
+        Vector3 correctedVelocity = rigidBody.velocity;
+        correctedVelocity.y = rigidBody.velocity.y;
+        correctedVelocity.z = 0.00f;
+        correctedVelocity.x *= 0.75f;
+
+        if (onGround)
+        {
+            rigidBody.velocity = correctedVelocity;
+        }
+
         onGround = OnGround();
         Move(conductor.horizontal);
-        //CheckBorders();
+        CheckBorders();
     }
-
 }

@@ -91,4 +91,10 @@ public class Conductor : MonoBehaviour
         heroMaster.Swap(heroStatus);
         timeMaster.Swap(heroStatus);
     }
+
+    public void SwapByTimeOut(int state)
+    {
+        heroStatus = state;
+        heroMaster.Swap(state);
+    }
 }

@@ -36,7 +36,7 @@ public class timeController : MonoBehaviour
         acTimer = new float[3] { maxTime , 0, 0};
         cdTimer = new float[3] { 0, maxTime, maxTime };
         cooldownMod = new float[3] { 0, 0, 0 };
-        // TODO : master : assign clockface colors
+        // TODO : OLD : master : assign clockface colors
         //activeClockFace = new Image[3];
         //for (int count = 0; count < 3; count++)
         //{
@@ -65,7 +65,7 @@ public class timeController : MonoBehaviour
         {
             int newState = FindNextState(state);
             UpdateState(newState);
-            // TODO : master : fix dependenciesCall the hero controller to change states
+            // TODO : OLD : master : fix dependenciesCall the hero controller to change states
             heroController.SwapLocalState(state);
         }
         

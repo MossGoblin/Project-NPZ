@@ -189,7 +189,7 @@ public class heroController : MonoBehaviour
         // Precision State Change
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            // TODO : hero : find if the selected state has time from GameMaster
+            // TODO : OLD : hero : find if the selected state has time from GameMaster
             if (state != 0 && master.IfGotTime(0))
             {
                 DoSwapHero(state, 0);
@@ -237,7 +237,6 @@ public class heroController : MonoBehaviour
             {
                 Debug.Log("Time Out!");
                 rnd.sprite = deadHero;
-                // TODO : HERE
                 //throw new Exception("TimedOut");
                 throw new Exception("TimeOut");
                 return state;
@@ -256,7 +255,7 @@ public class heroController : MonoBehaviour
     {
         //DoSwapTimers(oldState, false);
         SwapLocalState(newState);
-        // TODO : HERE : hero : Send Message to TimeMaster to Swap Clocks
+        // TODO : OLD : HERE : hero : Send Message to TimeMaster to Swap Clocks
         master.UpdateState(state);
         //DoSwapTimers(state, true);
     }

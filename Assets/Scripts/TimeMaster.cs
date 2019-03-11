@@ -23,6 +23,7 @@ public class TimeMaster : MonoBehaviour
     // Timers
     public float activeTimer;
     public float[] cooldownTimers;
+    public float swapThreshold;
 
     // Tokens
     public float timeFlow;
@@ -44,7 +45,7 @@ public class TimeMaster : MonoBehaviour
         cooldownTimers = new float[3];
         cooldownTokens = new float[3];
 
-        CheckState();
+        UpdateState();
 
         InitTimers();
         UpdateClocks();
@@ -53,12 +54,13 @@ public class TimeMaster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckState();
+        UpdateState();
         UpdateTimers();
         UpdateClocks();
+        CheckTimeOut();
     }
 
-    private void CheckState()
+    private void UpdateState()
     {
         heroStatus = conductor.heroStatus;
     }
@@ -152,6 +154,37 @@ public class TimeMaster : MonoBehaviour
         tempTimer = activeTimer;
         activeTimer = cooldownTimers[heroStatus];
         cooldownTimers[heroStatus] = tempTimer;
+    }
+
+    private void CheckTimeOut()
+    {
+        // check if current time is out
+        if (activeTimer <= 0)
+        {
+            // find if there is available state
+            if ((cooldownTimers[NextState(heroStatus)] >= swapThreshold) || (cooldownTimers[NextState(NextState(heroStatus))] >= swapThreshold))
+            {
+                // if there is - get the next available state
+                int nextState = GetNextState();
+                // push state swap
+                Swap(nextState);
+                conductor.SwapByTimeOut(heroStatus);
+                // TODO : here
+            }
+        }
+    }
+
+    private int GetNextState()
+    {
+        int nextState = NextState(heroStatus);
+        if (cooldownTimers[nextState] >= swapThreshold)
+        {
+            return nextState;
+        }
+        else
+        {
+            return NextState(nextState);
+        }
     }
 
     private int NextState(int state)
