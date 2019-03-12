@@ -137,7 +137,7 @@ public class HeroMaster : MonoBehaviour, IAgent
             transform.position.y >= 16)
         {
             Debug.Log("Out of borders");
-            
+            conductor.RestartLevel("Fell off the map");
         }
     }
 

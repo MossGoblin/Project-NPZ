@@ -171,6 +171,8 @@ public class TimeMaster : MonoBehaviour
                 conductor.SwapByTimeOut(heroStatus);
                 // TODO : here
             }
+            else
+                conductor.RestartLevel("Timed out");
         }
     }
 

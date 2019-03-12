@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -96,5 +97,10 @@ public class Conductor : MonoBehaviour
     {
         heroStatus = state;
         heroMaster.Swap(state);
+    }
+
+    internal void RestartLevel(string message)
+    {
+        Application.LoadLevel(Application.loadedLevel);
     }
 }
