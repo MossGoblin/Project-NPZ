@@ -13,6 +13,6 @@ namespace Assets.Scripts
         void Jump();
         void AttackRange();
         void AttackMelee();
-        bool OnGround();
+        //bool OnGround();
     }
 }

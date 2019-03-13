@@ -114,6 +114,7 @@
     <Compile Include="Assets\Cinemachine\Timeline\CinemachineShot.cs" />
     <Compile Include="Assets\Cinemachine\Timeline\CinemachineTrack.cs" />
     <Compile Include="Assets\Scripts\CameraController.cs" />
+    <Compile Include="Assets\Scripts\CeilingCheck.cs" />
     <Compile Include="Assets\Scripts\Conductor.cs" />
     <Compile Include="Assets\Scripts\enemyBulletAI.cs" />
     <Compile Include="Assets\Scripts\enemyController.cs" />
@@ -124,6 +125,7 @@
     <Compile Include="Assets\Scripts\HeroMaster.cs" />
     <Compile Include="Assets\Scripts\IAgent.cs" />
     <Compile Include="Assets\Scripts\IEnemy.cs" />
+    <Compile Include="Assets\Scripts\OnGroundCheck.cs" />
     <Compile Include="Assets\Scripts\PlatformCollisionTrigger.cs" />
     <Compile Include="Assets\Scripts\platformControllerOld.cs" />
     <Compile Include="Assets\Scripts\SpawnMaster.cs" />

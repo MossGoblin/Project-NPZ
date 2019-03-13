@@ -11,7 +11,8 @@ public class HeroMaster : MonoBehaviour, IAgent
     SpriteRenderer spriteRedenrer;
     Rigidbody2D rigidBody;
     Transform transform;
-    [SerializeField] private Transform[] playerBase;
+    [SerializeField] private Transform ceilingCheck;
+    [SerializeField] private Transform floorCheck;
     [SerializeField] private LayerMask groundDef;
 
     // Current status
@@ -19,7 +20,8 @@ public class HeroMaster : MonoBehaviour, IAgent
 
     // Spatial variables
     [SerializeField] private bool didDoubleJump;
-    [SerializeField] private bool onGround;
+    [SerializeField] public bool onGround;
+    [SerializeField] private bool canJump;
     private bool canDoubleJump;
     private float jumpPower;
     [SerializeField] private bool facingRight;
@@ -28,7 +30,8 @@ public class HeroMaster : MonoBehaviour, IAgent
     {
         status = conductor.heroStatus;
         spriteRedenrer.sprite = conductor.ghostMaster.sprites[status];
-        onGround = OnGround();
+        canJump = true;
+        //onGround = OnGround();
         canDoubleJump = conductor.ghostMaster.doubleJump[status];
         jumpPower = conductor.ghostMaster.jumpPower[status];
     }
@@ -48,14 +51,14 @@ public class HeroMaster : MonoBehaviour, IAgent
         if (onGround)
         {
             rigidBody.AddForce(new Vector2(0, jumpPower));
-            onGround = OnGround();
+            //onGround = OnGround();
         }
         else if (!onGround && canDoubleJump && !didDoubleJump)
         {
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, 0);
             didDoubleJump = true;
-            rigidBody.AddForce(new Vector2(0, jumpPower * 0.75f));
-            onGround = OnGround();
+            rigidBody.AddForce(new Vector2(0, jumpPower /* * 0.75f*/));
+            //onGround = OnGround();
         }
     }
 
@@ -69,25 +72,44 @@ public class HeroMaster : MonoBehaviour, IAgent
         }
     }
 
-    public bool OnGround()
+    public void SetOnGround(bool grounded)
     {
-        if (rigidBody.velocity.y <= 0)
-        {
-            foreach (Transform groundPoint in playerBase)
-            {
-                Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(groundPoint.position.x, groundPoint.position.y), 0.2f, groundDef);
-                for (int count = 0; count < colliders.Length; count++)
-                {
-                    if (colliders[count].gameObject != gameObject)
-                    {
-                        didDoubleJump = false;
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
+        onGround = grounded;
+        didDoubleJump = false;
     }
+
+    public void SetCanJump(bool noCeiling)
+    {
+        canJump = noCeiling;
+    }
+
+    //public bool OnGround()
+    //{
+    //    if (rigidBody.velocity.y <= 0)
+    //    {
+    //        foreach (Transform groundPoint in playerBase)
+    //        {
+    //            Collider2D[] colliders = Physics2D.OverlapCircleAll(new Vector2(groundPoint.position.x, groundPoint.position.y), 0.2f, groundDef);
+    //            for (int count = 0; count < colliders.Length; count++)
+    //            {
+    //                if (colliders[count].gameObject != gameObject)
+    //                {
+    //                    didDoubleJump = false;
+    //                    return true;
+    //                }
+    //            }
+    //        }
+    //    }
+    //    return false;
+    //}
+
+    //private void OnCollisionEnter2D(Collider2D other)
+    //{
+    //    if (other.gameObject.tag == "Terrain")
+    //    {
+    //        onGround = true;
+    //    }
+    //}
 
     public void Swap(int state)
     {
@@ -100,7 +122,7 @@ public class HeroMaster : MonoBehaviour, IAgent
 
     private void FlipPlayer()
     {
-        if (onGround || (!onGround && conductor.ghostMaster.airControl[status]))
+        if (onGround || (/*!onGround && */conductor.ghostMaster.airControl[status]))
         {
             if ((rigidBody.velocity.x >= 0 && facingRight) || (rigidBody.velocity.x < 0 && !facingRight))
             {
@@ -109,7 +131,6 @@ public class HeroMaster : MonoBehaviour, IAgent
                 transform.localScale = new Vector3(newScaleX, transform.localScale.y, transform.localScale.z);
             }
         }
-
     }
 
     // Start is called before the first frame update
@@ -156,7 +177,7 @@ public class HeroMaster : MonoBehaviour, IAgent
             rigidBody.velocity = correctedVelocity;
         }
 
-        onGround = OnGround();
+        //onGround = OnGround();
         Move(conductor.horizontal);
         CheckBorders();
     }
