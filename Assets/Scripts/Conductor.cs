@@ -9,6 +9,7 @@ public class Conductor : MonoBehaviour
     [SerializeField] public GhostMaster ghostMaster;
     [SerializeField] public HeroMaster heroMaster;
     [SerializeField] public TimeMaster timeMaster;
+    [SerializeField] public SpawnMaster spawnMaster;
 
     // Hero Status
     [SerializeField] private int heroDefault;
@@ -83,6 +84,12 @@ public class Conductor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             heroMaster.Jump();
+        }
+
+        // Spawn Enemies By Input
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            spawnMaster.Spawn();
         }
     }
 

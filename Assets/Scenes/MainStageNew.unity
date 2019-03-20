@@ -2918,7 +2918,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemies:
-  - {fileID: 3067842319049427082, guid: b2824f0b8d776ee4f84293882cfcd789, type: 3}
+  - {fileID: 3602627476814411782, guid: 6c834107bd2aadb4aab62649981f8c0d, type: 3}
+  - {fileID: 5110842522549929823, guid: c9b35b11d11fba249bb85ce46e770ddf, type: 3}
+  - {fileID: 7348354919450608620, guid: 28c6a5b402fb260458b50321ccc835ac, type: 3}
+  spawnPointNumber: 9
+  enemyTypesNumber: 3
   spawnPoints:
   - {fileID: 33396914}
   - {fileID: 552044167}
@@ -2929,6 +2933,7 @@ MonoBehaviour:
   - {fileID: 2056239605}
   - {fileID: 237674504}
   - {fileID: 609325483}
+  spawnPointVacancy: 
 --- !u!1 &449699019
 GameObject:
   m_ObjectHideFlags: 0
@@ -4149,6 +4154,7 @@ MonoBehaviour:
   ghostMaster: {fileID: 1651698918}
   heroMaster: {fileID: 391210155}
   timeMaster: {fileID: 788557350}
+  spawnMaster: {fileID: 447535636}
   heroDefault: 0
   heroStatus: 0
   horizontal: 0
