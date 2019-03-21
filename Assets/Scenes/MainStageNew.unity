@@ -2917,12 +2917,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f802fb502bcfe1445976364c1cf28481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  conductor: {fileID: 653912618}
   enemies:
   - {fileID: 3602627476814411782, guid: 6c834107bd2aadb4aab62649981f8c0d, type: 3}
   - {fileID: 5110842522549929823, guid: c9b35b11d11fba249bb85ce46e770ddf, type: 3}
   - {fileID: 7348354919450608620, guid: 28c6a5b402fb260458b50321ccc835ac, type: 3}
   spawnPointNumber: 9
   enemyTypesNumber: 3
+  spawnDelay: 5
   spawnPoints:
   - {fileID: 33396914}
   - {fileID: 552044167}
@@ -2934,6 +2936,7 @@ MonoBehaviour:
   - {fileID: 237674504}
   - {fileID: 609325483}
   spawnPointVacancy: 
+  spawnPointTimers: []
 --- !u!1 &449699019
 GameObject:
   m_ObjectHideFlags: 0
