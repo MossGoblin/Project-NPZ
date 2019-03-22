@@ -18,10 +18,13 @@ public class Conductor : MonoBehaviour
     // Hero Movement Variables
     public float horizontal;
 
+    [SerializeField] private int initialSpawn;
+
     // Start is called before the first frame update
     void Start()
     {
         heroDefault = 0;
+        spawnMaster.SpawnBulk(initialSpawn);
     }
 
     // Update is called once per frame
@@ -43,7 +46,7 @@ public class Conductor : MonoBehaviour
     }
     private void HandleInput()
     {
-        // Enter to swap heroes
+        // Swap heroes
         if (Input.GetKeyDown(KeyCode.Return))
         {
             //Debug.Log("CC: Return Pressed");
@@ -51,7 +54,7 @@ public class Conductor : MonoBehaviour
             SwapByInput();
         }
 
-        // Enter to change to hero
+        // Change to hero
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             if (heroStatus != 0)
@@ -87,9 +90,15 @@ public class Conductor : MonoBehaviour
         }
 
         // Spawn Enemies By Input
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             spawnMaster.Spawn();
+        }
+
+        // Shoot projectile
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            heroMaster.Shoot();
         }
     }
 

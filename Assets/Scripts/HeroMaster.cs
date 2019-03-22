@@ -8,12 +8,14 @@ public class HeroMaster : MonoBehaviour, IAgent
 {
     // References
     [SerializeField] private Conductor conductor;
+    [SerializeField] private ProjectileDepo prjDepo;
     SpriteRenderer spriteRedenrer;
     Rigidbody2D rigidBody;
     Transform transform;
     [SerializeField] private Transform ceilingCheck;
     [SerializeField] private Transform floorCheck;
     [SerializeField] private LayerMask groundDef;
+    [SerializeField] private Transform shooter;
 
     // Current status
     [SerializeField] private int status;
@@ -83,6 +85,19 @@ public class HeroMaster : MonoBehaviour, IAgent
         canJump = noCeiling;
     }
 
+    public void Shoot()
+    {
+        // TODO : HERO : SHOOT Instantiate bullet
+        Vector2 position;
+        Vector2 direction = shooter.position - transform.position;
+        direction.Normalize();
+        Quaternion rotation;
+        position = shooter.position;
+        rotation = shooter.rotation;
+        GameObject projectile = Instantiate(prjDepo.projectiles[0], position, rotation);
+        projectile.GetComponent<Rigidbody2D>().velocity = projectile.GetComponent<ShurikenController>().speed * direction;
+    }
+
     //public bool OnGround()
     //{
     //    if (rigidBody.velocity.y <= 0)
@@ -140,7 +155,11 @@ public class HeroMaster : MonoBehaviour, IAgent
         spriteRedenrer = gameObject.GetComponent<SpriteRenderer>();
         rigidBody = gameObject.GetComponent<Rigidbody2D>();
         transform = gameObject.GetComponent<Transform>();
+        
         Init();
+
+        // Outer References
+        prjDepo = FindObjectOfType<ProjectileDepo>();
     }
     private void CheckBorders()
     {

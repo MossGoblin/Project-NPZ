@@ -123,6 +123,8 @@
     <Compile Include="Assets\Scripts\IEnemy.cs" />
     <Compile Include="Assets\Scripts\OnGroundCheck.cs" />
     <Compile Include="Assets\Scripts\PlatformCollisionTrigger.cs" />
+    <Compile Include="Assets\Scripts\ProjectileDepo.cs" />
+    <Compile Include="Assets\Scripts\ShurikenController.cs" />
     <Compile Include="Assets\Scripts\SpawnMaster.cs" />
     <Compile Include="Assets\Scripts\TimeMaster.cs" />
     <None Include="Assets\Cinemachine\ReleaseNotes.txt" />

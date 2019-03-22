@@ -7,6 +7,7 @@ public class EnemyController : MonoBehaviour
     [SerializeField] SpawnMaster spawnMaster;
 
     [SerializeField] public float timeLeft;
+    [SerializeField] public float lifePonits;
 
     public int spawnPointIndex;
     public int selfType;
@@ -14,8 +15,8 @@ public class EnemyController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // set time left
-        timeLeft = 5f;
+        // set time left    
+        timeLeft = 60f;
 
         // get conductor
         spawnMaster = GameObject.FindObjectOfType<SpawnMaster>();
@@ -30,5 +31,11 @@ public class EnemyController : MonoBehaviour
             spawnMaster.RemoveEnemy(gameObject, selfType, spawnPointIndex);
             Destroy(gameObject);
         }
+    }
+
+    public void ReceiveDamage(float damage)
+    {
+        // TODO : ENEMY : Take Dagame
+        Destroy(gameObject);
     }
 }
