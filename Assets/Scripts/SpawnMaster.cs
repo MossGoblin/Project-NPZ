@@ -18,7 +18,7 @@ public class SpawnMaster : MonoBehaviour
 
 
     // SpawnPoints
-    public GameObject[] spawnPoints; // an array of all spawn points
+    public Transform[] spawnPoints; // an array of all spawn points
     [SerializeField] private bool[] spawnPointVacancy; // keeps track of the available spawn points
     [SerializeField] private float[] spawnPointTimers;
 
@@ -104,6 +104,12 @@ public class SpawnMaster : MonoBehaviour
         }
     }
 
+    public void Spawn(int pointNumber)
+    {
+        // Spawn Enemy
+        int typeSpawn = CreateInstance(pointNumber);
+    }
+
     private int CreateInstance(int chosenSpawnPointIndex)
     {
         for (int count = 0; count < enemyTypesNumber; count++)
@@ -119,7 +125,7 @@ public class SpawnMaster : MonoBehaviour
         int rndTypeIndex = rnd.Next(pValues.Count - 1);
         int typeSpawn = pValues[rndTypeIndex];
 
-        GameObject chosenSpawnPoint = spawnPoints[chosenSpawnPointIndex];
+        Transform chosenSpawnPoint = spawnPoints[chosenSpawnPointIndex];
         // get coordinates of spawn point
         Vector3 spawnCoordinates = chosenSpawnPoint.transform.position;
 
