@@ -1137,6 +1137,7 @@ MonoBehaviour:
   spawnPointNumber: 9
   enemyTypesNumber: 3
   spawnDelay: 5
+  testEnemySpeed: 3
   spawnPoints:
   - {fileID: 33396916}
   - {fileID: 552044169}

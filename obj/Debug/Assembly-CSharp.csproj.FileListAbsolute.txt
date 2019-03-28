@@ -562,6 +562,3 @@ C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NP
 C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NPZ\obj\Debug\Assembly-CSharp.csproj.CopyComplete
 C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NPZ\obj\Debug\Assembly-CSharp.dll
 C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NPZ\obj\Debug\Assembly-CSharp.pdb
-C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NPZ\Temp\bin\Debug\Boo.Lang.dll
-C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NPZ\Temp\bin\Debug\UnityEditor.UI.dll
-C:\Users\Yolly\Google Drive\Codee\[ GITHUBBED ]\[ MyStuff ]\[ Unity ]\Project-NPZ\Temp\bin\Debug\UnityEditor.UI.xml

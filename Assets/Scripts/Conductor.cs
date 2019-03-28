@@ -98,7 +98,7 @@ public class Conductor : MonoBehaviour
         // Spawn Single Enemy at point 1
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            spawnMaster.Spawn(1);
+            spawnMaster.Spawn(0);
         }
 
         // Shoot projectile

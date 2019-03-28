@@ -16,6 +16,8 @@ public class SpawnMaster : MonoBehaviour
     [SerializeField] private int enemyTypesNumber;
     [SerializeField] public float spawnDelay;
 
+    // Test Core
+    [SerializeField] public float testEnemySpeed;
 
     // SpawnPoints
     public Transform[] spawnPoints; // an array of all spawn points
@@ -133,6 +135,7 @@ public class SpawnMaster : MonoBehaviour
         // send information to the enemy about the parent spawning point
         newEnemy.GetComponent<EnemyController>().spawnPointIndex = chosenSpawnPointIndex;
         newEnemy.GetComponent<EnemyController>().selfType = typeSpawn;
+        newEnemy.GetComponent<EnemyController>().speed = testEnemySpeed;
 
         // log the new enemy in the population list
         population.Add(newEnemy);
