@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3973415787475584673}
   - component: {fileID: 6341223217694804656}
   - component: {fileID: 3426351644916263935}
+  - component: {fileID: 1636939439129567934}
   m_Layer: 0
   m_Name: enemy1
   m_TagString: Enemy
@@ -100,6 +101,11 @@ MonoBehaviour:
   speed: 0
   spawnPointIndex: 0
   selfType: 0
+  boundOne: {x: 0, y: 0}
+  boundTwo: {x: 0, y: 0}
+  state: 0
+  injured: 0
+  heroInRange: 0
 --- !u!61 &6341223217694804656
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -146,4 +152,16 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
+--- !u!114 &1636939439129567934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602627476814411782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75842cb2cf3faa54f996bbe3bbc18c15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -19,16 +19,20 @@ public class EnemyController : MonoBehaviour
     private Vector2 facingTarget;
     private Vector2 movingTarget;
     private float direction;
+    private bool facingRight;
 
     // position boundaries
-    private SpawnPointController spawnPoint;
-    private Vector2 boundOne;
-    private Vector2 boundTwo;
+    public SpawnPointController spawnPoint;
 
+    // AI factors
+    [SerializeField] public EnemyAI enemyAI;
 
     // Start is called before the first frame update
     void Start()
     {
+        // get AI
+        enemyAI = GetComponentInParent<EnemyAI>();
+
         // set time left    
         timeLeft = 60f;
 
@@ -40,38 +44,9 @@ public class EnemyController : MonoBehaviour
 
         // get borders
         spawnPoint = spawnMaster.spawnPoints[spawnPointIndex].GetComponent<SpawnPointController>();
-        boundOne = spawnPoint.borders[0].position;
-        boundTwo = spawnPoint.borders[1].position;
 
-        // orient
-        facingTarget = boundOne;
-        movingTarget = boundOne;
-        currentMovingTarget = 0;
-        GetDirection();
-    }
-
-    private void GetDirection()
-    {
-        if (Math.Abs(movingTarget.x - transform.position.x) <= 0.25)
-        {
-            ChangeDitection();
-        }
-
-        if (movingTarget.x >= transform.position.x)
-        {
-            direction = 1;
-        }
-        else
-        {
-            direction = -1;
-        }
-    }
-
-    private void ChangeDitection()
-    {
-        currentMovingTarget = 1 - currentMovingTarget;
-        facingTarget = spawnPoint.borders[currentMovingTarget].position;
-        movingTarget = spawnPoint.borders[currentMovingTarget].position;
+        // Init AI
+        
     }
 
     // Update is called once per frame
@@ -84,18 +59,14 @@ public class EnemyController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        MoveAround();
-        GetDirection();
+        enemyAI.FixedUpdate();
     }
 
-    private void MoveAround()
-    {
-        rigidBody.velocity = new Vector2(speed * direction * Time.deltaTime, rigidBody.velocity.y);
-    }
+
 
     public void ReceiveDamage(float damage)
     {
-        // TODO : ENEMY : Take Dagame
+        // TODO : ENEMY : Take Actual Damage
         Destroy(gameObject);
     }
 }

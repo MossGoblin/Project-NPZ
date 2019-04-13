@@ -133,9 +133,16 @@ public class SpawnMaster : MonoBehaviour
 
         GameObject newEnemy = Instantiate(enemies[typeSpawn], spawnCoordinates, Quaternion.identity);
         // send information to the enemy about the parent spawning point
-        newEnemy.GetComponent<EnemyController>().spawnPointIndex = chosenSpawnPointIndex;
-        newEnemy.GetComponent<EnemyController>().selfType = typeSpawn;
-        newEnemy.GetComponent<EnemyController>().speed = testEnemySpeed;
+        EnemyController newEnemyController = newEnemy.GetComponent<EnemyController>();
+        EnemyAI newEnemyAI = newEnemy.GetComponent<EnemyAI>();
+        SpawnPointController spawnPointController = chosenSpawnPoint.GetComponent<SpawnPointController>();
+
+        newEnemyController.spawnPointIndex = chosenSpawnPointIndex;
+        newEnemyController.selfType = typeSpawn;
+        newEnemyController.speed = testEnemySpeed;
+        //newEnemyController.enemyAI.boundOne = spawnPointController.borders[0].position;
+        //newEnemyController.enemyAI.boundTwo = spawnPointController.borders[1].position;
+        newEnemyAI.aiState = 0;
 
         // log the new enemy in the population list
         population.Add(newEnemy);
