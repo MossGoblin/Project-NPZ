@@ -169,7 +169,7 @@ public class TimeMaster : MonoBehaviour
                 // push state swap
                 Swap(nextState);
                 conductor.SwapByTimeOut(heroStatus);
-                // TODO : here
+                // TODO : last here
             }
             else
                 conductor.RestartLevel("Timed out");

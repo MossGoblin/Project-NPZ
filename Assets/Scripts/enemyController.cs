@@ -8,8 +8,6 @@ public class EnemyController : MonoBehaviour
     [SerializeField] SpawnMaster spawnMaster;
 
     [SerializeField] public float timeLeft;
-    [SerializeField] public float lifePonits;
-    [SerializeField] public float speed;
 
     private Rigidbody2D rigidBody;
 
@@ -28,10 +26,10 @@ public class EnemyController : MonoBehaviour
     [SerializeField] public EnemyAI enemyAI;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         // get AI
-        enemyAI = GetComponentInParent<EnemyAI>();
+        enemyAI = GetComponent<EnemyAI>(); // Why does this NULL out one me?
 
         // set time left    
         timeLeft = 60f;
@@ -58,8 +56,6 @@ public class EnemyController : MonoBehaviour
             spawnMaster.RemoveEnemy(gameObject, selfType, spawnPointIndex);
             Destroy(gameObject);
         }
-
-        enemyAI.FixedUpdate();
     }
 
 
