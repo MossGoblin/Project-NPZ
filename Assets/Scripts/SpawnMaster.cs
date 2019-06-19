@@ -139,6 +139,7 @@ public class SpawnMaster : MonoBehaviour
 
         newEnemyController.spawnPointIndex = chosenSpawnPointIndex;
         newEnemyController.selfType = typeSpawn;
+        newEnemy.layer = 11;
         //newEnemyController.enemyAI.boundOne = spawnPointController.borders[0].position;
         //newEnemyController.enemyAI.boundTwo = spawnPointController.borders[1].position;
 

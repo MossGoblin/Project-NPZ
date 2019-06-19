@@ -1,4 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/TrainingGround.unity
+- path: Assets/Scenes/MainStageNew.unity
   isLoaded: 1
   isActive: 1
+  isSubScene: 0

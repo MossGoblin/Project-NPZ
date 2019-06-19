@@ -24,7 +24,7 @@ public class Conductor : MonoBehaviour
     void Start()
     {
         heroDefault = 0;
-        //spawnMaster.SpawnBulk(initialSpawn);
+        spawnMaster.SpawnBulk(initialSpawn);
     }
 
     // Update is called once per frame
@@ -98,7 +98,7 @@ public class Conductor : MonoBehaviour
         // Spawn Single Enemy at point 1
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            spawnMaster.Spawn(0);
+            //spawnMaster.Spawn(0);
         }
 
         // Shoot projectile

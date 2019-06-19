@@ -200,4 +200,11 @@ public class HeroMaster : MonoBehaviour, IAgent
         Move(conductor.horizontal);
         CheckBorders();
     }
+
+    public void GetKnockBack(float knockBackAmount)
+    {
+        // TODO : FIND A WAY TO APPLY KNOCKBACK
+        Vector2 velocityKnockBackAddition = new Vector2(knockBackAmount, rigidBody.velocity.y);
+        rigidBody.velocity += velocityKnockBackAddition;
+    }
 }

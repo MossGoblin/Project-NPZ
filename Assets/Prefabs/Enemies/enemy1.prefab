@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5282998060494562032}
   - component: {fileID: 5185067345799552446}
+  - component: {fileID: 2787456905184217706}
   m_Layer: 0
   m_Name: HeroDetector
   m_TagString: Untagged
@@ -57,6 +58,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.7280054, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &2787456905184217706
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 394704576811595803}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 924e4c23d37ce7c4da36a4faf982399b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3602627476814411782
 GameObject:
   m_ObjectHideFlags: 0
@@ -71,6 +84,7 @@ GameObject:
   - component: {fileID: 1636939439129567934}
   - component: {fileID: 3426351644916263935}
   - component: {fileID: 6341223217694804656}
+  - component: {fileID: 4354727419994930695}
   m_Layer: 0
   m_Name: enemy1
   m_TagString: Enemy
@@ -90,6 +104,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5282998060494562032}
+  - {fileID: 9052622714782418157}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -176,6 +191,7 @@ MonoBehaviour:
   speed: 0
   speeds: []
   operationMode: 0
+  attackTarget: {x: 0, y: 0}
   heroInRange: 0
   calmState: 0
 --- !u!50 &3426351644916263935
@@ -223,5 +239,94 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.6714286, y: 1.4285715}
+  m_Size: {x: 1.7, y: 1.5}
   m_EdgeRadius: 0
+--- !u!114 &4354727419994930695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602627476814411782}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6055d7acb0666a3479a0f20ef7d3c44c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  projectile: {fileID: 8886843640384276348, guid: a3073e02a707c904081e2fc3c29565c6,
+    type: 3}
+  meleeAttackTriggerBool: 0
+--- !u!1 &7586799473337900391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9052622714782418157}
+  - component: {fileID: 958444855503930772}
+  - component: {fileID: 4524329095902930477}
+  m_Layer: 0
+  m_Name: AttackBox
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9052622714782418157
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586799473337900391}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.0000009536743, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 8804936376352863706}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &958444855503930772
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586799473337900391}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 1.1035209, y: 0.10031998}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.2540007, y: 1.7022402}
+  m_EdgeRadius: 0
+--- !u!114 &4524329095902930477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7586799473337900391}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: feae748d88e9cb1499e8bae17a1f2482, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSprite: {fileID: 21300000, guid: c8504ca5ed56dae49955b08d0b2db967, type: 3}
+  attackSprite: {fileID: 21300000, guid: 4235247018f6acb4d9ca73e03c781784, type: 3}
+  ghostMaster: {fileID: 0}
+  conductor: {fileID: 0}

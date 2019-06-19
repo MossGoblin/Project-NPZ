@@ -12,12 +12,12 @@ public class EnemyController : MonoBehaviour
     private Rigidbody2D rigidBody;
 
     public int spawnPointIndex;
-    public int selfType;
     private int currentMovingTarget;
     private Vector2 facingTarget;
     private Vector2 movingTarget;
     private float direction;
     private bool facingRight;
+    public int selfType;
 
     // position boundaries
     public SpawnPointController spawnPoint;
@@ -55,6 +55,14 @@ public class EnemyController : MonoBehaviour
         {
             spawnMaster.RemoveEnemy(gameObject, selfType, spawnPointIndex);
             Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            Physics2D.GetIgnoreCollision(other.GetComponent<BoxCollider2D>(), gameObject.GetComponent<BoxCollider2D>());
         }
     }
 
