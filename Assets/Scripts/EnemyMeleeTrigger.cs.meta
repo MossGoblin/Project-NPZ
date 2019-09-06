@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: feae748d88e9cb1499e8bae17a1f2482
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - baseSprite: {fileID: 21300000, guid: c8504ca5ed56dae49955b08d0b2db967, type: 3}
+  - meleeSprite: {fileID: 21300000, guid: 4235247018f6acb4d9ca73e03c781784, type: 3}
+  - ghostMaster: {instanceID: 0}
+  - conductor: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
